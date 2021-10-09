@@ -1,11 +1,17 @@
 ﻿// ConsoleApplication2.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include <iostream>
+#include <map>  
+
+#include <string>  
+
+#include <iostream>  
 #include <vector>
-#include <stack>
-#include <string>
+#include <unordered_map>
+#include <iterator>
+
 using namespace std;
+
 
 struct TreeNode {
 	int val;
@@ -17,43 +23,45 @@ struct TreeNode {
 };
 
 
-string tree2str(TreeNode* root) {
-	if (root==nullptr)
+
+int lengthOfLongestSubstring(string s) {
+	int character[128];
+	memset(character, -1, sizeof(character));//初始化数组
+	int left = 0;//窗口左指针
+	int right = 0;//窗口右指针
+	int length = s.length();
+	int ans = 0;
+	int max = 0;//最大窗口长度
+	if (length==0)
 	{
-		return "";
+		return 0;//特殊处理
 	}
-	//左子树为空，右子树不为空
-	if (root->left==nullptr&&root->right!=nullptr)
+	character[s[0]] = 0;
+	while (right<length-1)//注意：字符串最后一个char是\0
 	{
-		return std::to_string( root->val) + "()("+tree2str(root->right)+")";
+		right++;
+		if (left<=character[s[right]])
+		{
+			//如果right位置上出现的字母在left鸡left的右侧（窗口内出现重复字母），将left调整到该字母的右侧
+			left = character[s[right]]+1;
+		}
+		//更新字母最新出现的位置
+		character[s[right]] = right;
+		//更新区间长度
+		ans = right - left;
+		if (ans>max)
+		{
+			max = ans;
+		}
 	}
-	//左子树不为空，右子树为空
-	if (root->left!=nullptr&&root->right==nullptr)
-	{
-		return std::to_string( root->val )+"(" + tree2str(root->left) + ")";
-	}
-	//左右子树都为空
-	if (root->left==nullptr&&root->right==nullptr)
-	{
-		return std::to_string(root->val);
-	}
-	else {
-		return std::to_string(root->val)+"(" + tree2str(root->left)+")(" + tree2str(root->right)+")";
-	}
+
+	return max+1;
 }
 
 int main()
 {
-	std::cout << "Hello World!\n";
-	TreeNode t1 = TreeNode(1);
-	TreeNode t2 = TreeNode(2);
-	TreeNode t3 = TreeNode(3);
-	TreeNode t4 = TreeNode(4);
-	t1.left = &t2;
-	t1.right = &t3;
-	t2.left = &t4;
+	lengthOfLongestSubstring("au");
 
-	std::cout << tree2str(&t1);
 	return 0;
 }
 
