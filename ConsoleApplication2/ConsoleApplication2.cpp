@@ -1005,7 +1005,429 @@ using namespace std;
 //	}
 //	return false;
 //}
-ListNode* removeElements(ListNode* head, int val) {
+
+//Definition for singly-linked list.
+//struct ListNode {
+//    int val;
+//    ListNode *next;
+//    ListNode() : val(0), next(nullptr) {}
+//    ListNode(int x) : val(x), next(nullptr) {}
+//    ListNode(int x, ListNode *next) : val(x), next(next) {}
+//};
+//
+//ListNode* removeElements(ListNode* head, int val) {
+//	if (!head)
+//		return nullptr;
+//	ListNode dummy = ListNode(0,head);
+//	head = &dummy;
+//	while (head->next!=nullptr)
+//	{
+//		if (head->next->val==val)
+//		{
+//			head->next = head->next->next;
+//		}
+//		else
+//		{
+//			head = head->next;
+//		}
+//	}
+//	return dummy.next;
+//}
+
+//vector<vector<int>> combine(int n, int k) {
+//	vector<vector<int>> ans;
+//	if (k <= 0 || n < k)
+//		return ans;
+//	deque<int> path;
+//	dfs(n, k, 1, path, ans);
+//	return ans;
+//}
+//void dfs(int n, int k, int index, deque<int> path, vector<vector<int>>& res) {
+//	if (path.size() == k) {
+//		res.push_back(vector<int>(path.begin(),path.end()));
+//		return;
+//	}
+//
+//	// 只有这里 i <= n - (k - path.size()) + 1 与参考代码 1 不同
+//	for (int i = index; i <= n - (k - path.size()) + 1; i++) {
+//		path.push_back(i);
+//		dfs(n, k, i + 1, path, res);
+//		path.pop_back();
+//	}
+//}
+
+//vector<string> letterCasePermutation(string s) {
+//
+//}
+//void dfs(vector<vector<int>>& nums, vector<int>& ans, int start,int len) {
+//	if (start==len)
+//	{
+//		nums.emplace_back(ans);//达到搜索的极限，加入答案数组
+//		return;
+//	}
+//	for (int i = start; i < len; i++)
+//	{
+//		swap(ans[start], ans[i]);
+//		dfs(nums, ans, start + 1, len);//锁定前start位，搜索后面的可能性
+//		swap(ans[i], ans[start]);
+//	}
+//
+//}
+//vector<vector<int>> permute(vector<int>& nums) {
+//	vector<vector<int>> ans;
+//	dfs(ans, nums, 0, nums.size());
+//	return ans;
+//}
+
+//void rotate(vector<vector<int>>& matrix) {
+//	int n = matrix.size();
+//	for (int i = 0; i < n / 2; i++)
+//	{
+//		for (int j = 0; j < n / 2; j++)
+//		{
+//			swap(matrix[i][j], matrix[i][n - j - 1]);
+//			swap(matrix[n - 1 - i][j], matrix[n - i - 1][n - j - 1]);
+//			swap(matrix[i][j], matrix[n - 1 - i][n - j - 1]);
+//		}
+//	}
+//}
+
+//Definition for a binary tree node.
+//struct TreeNode {
+//    int val;
+//    TreeNode *left;
+//    TreeNode *right;
+//    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+//
+//int kthSmallest(TreeNode* root, int k) {
+//	countNodes(root);
+//	return getSmallest(k,root);
+//}
+//
+//unordered_map<TreeNode*, int> nodeNum;
+//int getSmallest(int k, TreeNode* root) {
+//	TreeNode* node = root;
+//	while (node!=nullptr)
+//	{
+//		int left = getCount(node->left);
+//		if (left<k-1)
+//		{
+//			node = node->right;
+//			k -= left + 1;
+//		}
+//		else if (left>k-1) {
+//			node = node->left;
+//		}
+//		else
+//		{
+//			break;
+//		}
+//	}
+//	return node->val;
+//}
+//int countNodes(TreeNode* root) {
+//	if (root == nullptr){
+//		return 0;
+//	}
+//	nodeNum[root] = 1 + countNodes(root->left) + countNodes(root->right);
+//	return nodeNum[root];
+//}
+//
+//int getCount(TreeNode* node) {
+//	if (node != nullptr && nodeNum.count(node)) {
+//		return nodeNum[node];
+//	} else {
+//		return 0;
+//	}
+//}
+
+//int minimumTotal(vector<vector<int>>& triangle) {
+//	int depth = triangle.size();
+//	vector<int> dp(triangle.back());
+//	for (int i = depth - 2; i >= 0; i--)
+//	{
+//		for (int j = 0; j <= i; j++)
+//		{
+//			dp[j] = min(dp[j], dp[j + 1]) + triangle[i][j];
+//		}
+//	}
+//	return dp[0];
+//}
+
+//Definition for singly-linked list.
+//struct ListNode {
+//	int val;
+//	ListNode* next;
+//	ListNode() : val(0), next(nullptr) {}
+//	ListNode(int x) : val(x), next(nullptr) {}
+//	ListNode(int x, ListNode* next) : val(x), next(next) {}
+//};
+//
+//ListNode* deleteDuplicates(ListNode* head) {
+//	if (!head) {
+//		return head;
+//	}
+//
+//	ListNode* cur = head;
+//	while (cur->next) {
+//		if (cur->val == cur->next->val) {
+//			cur->next = cur->next->next;
+//		}
+//		else {
+//			cur = cur->next;
+//		}
+//	}
+//
+//	return head;
+//}
+//class MyQueue {
+//public:
+//	MyQueue() {
+//
+//	}
+//	stack<int> s1;
+//	stack<int> s2;
+//	int front;
+//	void push(int x) {
+//		front = x;
+//		while (!s1.empty()){ s2.push(s1.top()); s1.pop(); }
+//		s2.push(x);
+//		while (!s2.empty()){ s1.push(s2.top()); s2.pop(); }
+//	}
+//
+//	int pop() {
+//		int p = s1.top();
+//		if (!s1.empty())
+//		{
+//			front = s1.top();
+//			s1.pop();
+//		}
+//		return p;
+//	}
+//
+//	int peek() {
+//		return s1.top();
+//	}
+//
+//	bool empty() {
+//		return s1.empty();
+//	}
+//};
+//int maxX, maxY;
+//int dir[4][2] = { {1,0},{0,-1},{-1,0},{0,1} };
+//void bfs(vector<vector<int>>& image, pair<int, int> p, queue<pair<int, int>>* q, int newColor, int oldColor) {
+//	if (image[p.first][p.second] == oldColor)
+//	{
+//		image[p.first][p.second] = newColor;
+//	}
+//	else
+//	{
+//		return;
+//	}
+//	for (int i = 0; i < 4; i++)
+//	{
+//		int x = p.first + dir[i][0];
+//		int y = p.second + dir[i][1];
+//		if (x >= 0 && y >= 0 && x < maxX && y < maxY)
+//		{
+//			if (image[x][y] == oldColor)
+//			{
+//				q->push(make_pair(x, y));
+//			}
+//		}
+//	}
+//}
+//
+//
+//vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+//	queue<pair<int, int>> unfind;
+//	int colorOld = image[sr][sc];
+//	if (colorOld == newColor) return image;
+//	maxX = image.size(); maxY = image[0].size();
+//	unfind.push(make_pair(sr, sc));
+//	while (!unfind.empty())
+//	{
+//		bfs(image, unfind.front(), &unfind, newColor, colorOld);
+//		unfind.pop();
+//	}
+//	return image;
+//}
+
+
+//Definition for a binary tree node.
+//struct TreeNode {
+//    int val;
+//    TreeNode *left;
+//    TreeNode *right;
+//    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+//
+//vector<int> postorderTraversal(TreeNode* root) {
+//
+//}
+//class Trie {
+//private:
+//    vector<Trie*> children;
+//    bool isEnd;
+//
+//    Trie* searchPrefix(string prefix) {
+//        Trie* node = this;
+//        for (char ch : prefix) {
+//            ch -= 'a';
+//            if (node->children[ch] == nullptr) {
+//                return nullptr;
+//            }
+//            node = node->children[ch];
+//        }
+//        return node;
+//    }
+//
+//public:
+//    Trie() : children(26), isEnd(false) {}
+//
+//    void insert(string word) {
+//        Trie* node = this;
+//        for (char ch : word) {
+//            ch -= 'a';
+//            if (node->children[ch] == nullptr) {
+//                node->children[ch] = new Trie();
+//            }
+//            node = node->children[ch];
+//        }
+//        node->isEnd = true;
+//    }
+//
+//    bool search(string word) {
+//        Trie* node = this->searchPrefix(word);
+//        return node != nullptr && node->isEnd;
+//    }
+//
+//    bool startsWith(string prefix) {
+//        return this->searchPrefix(prefix) != nullptr;
+//    }
+//};
+//struct TrieNode {
+//	vector<TrieNode*> child;
+//	bool isEnd;
+//	TrieNode() {
+//		this->child = vector<TrieNode*>(26, nullptr);
+//		this->isEnd = false;
+//	}
+//};
+//void Insert(TrieNode* t,string s) {
+//	TrieNode* node = t;
+//	for (auto c : s) {
+//		if (t->child[c-'a']==nullptr)
+//		{
+//			t->child[c - 'a'] = new TrieNode();
+//		}
+//		t = t->child[c - 'a'];
+//	}
+//	t->isEnd = true;
+//}
+//
+//class WordDictionary {
+//public:
+//	TrieNode root;
+//	WordDictionary() {
+//		root = TrieNode();
+//	}
+//
+//	void addWord(string word) {
+//		Insert(&root, word);
+//	}
+//
+//	bool search(string word) {
+//		return dfs(word, 0, &root);
+//	}
+//	bool dfs(const string& word, int index, TrieNode* node) {
+//		if (index == word.size()) {
+//			return node->isEnd;
+//		}
+//		char ch = word[index];
+//		if (ch >= 'a' && ch <= 'z') {
+//			TrieNode* child = node->child[ch - 'a'];
+//			if (child != nullptr && dfs(word, index + 1, child)) {
+//				return true;
+//			}
+//		}
+//		else if (ch == '.') {
+//			for (int i = 0; i < 26; i++) {
+//				TrieNode* child = node->child[i];
+//				if (child != nullptr && dfs(word, index + 1, child)) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
+//};
+//int countDigitOne(int n) {
+//	// mulk 表示 10^k
+//	// 在下面的代码中，可以发现 k 并没有被直接使用到（都是使用 10^k）
+//	// 但为了让代码看起来更加直观，这里保留了 k
+//	long long mulk = 1;
+//	int ans = 0;
+//	for (int k = 0; n >= mulk; ++k) {
+//		ans += (n / (mulk * 10)) * mulk + min(max(n % (mulk * 10) - mulk + 1, 0LL), mulk);
+//		mulk *= 10;
+//	}
+//	return ans;
+//}
+//int singleNumber(vector<int>& nums) {
+//	int ans = 0;
+//	for (int v : nums) {
+//		ans ^= v;
+//	}
+//	return ans;
+//}
+
+//Definition for a binary tree node.
+//struct TreeNode {
+//    int val;
+//    TreeNode *left;
+//    TreeNode *right;
+//    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+//int getLength(TreeNode* root) {
+//	int l = 0, r = 0;
+//	if (root->left != nullptr)
+//		l = maxDepth(root->left) + 1;
+//	if (root->right != nullptr)
+//		r = maxDepth(root->right) + 1;
+//	return max(l, r);
+//}
+//int maxDepth(TreeNode* root) {
+//	return getLength(root)+1;
+//}
+
+//Definition for a binary tree node.
+//struct TreeNode {
+//    int val;
+//    TreeNode *left;
+//    TreeNode *right;
+//    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+//
+//TreeNode* invertTree(TreeNode* root) {
+//	if (root==nullptr)
+//	{
+//		return nullptr;
+//	}
+//	swap(root->left, root->right);
+//	invertTree(root->left);
+//	invertTree(root->right);
+//}
+vector<int> plusOne(vector<int>& digits) {
 
 }
 int main()
@@ -1026,6 +1448,24 @@ int main()
 	//jump(v2);
 	//removeDuplicates(v2);
 	//countAndSay(4);
+	//vector<vector<int>> v1;
+	//v1.push_back(vector<int>{0, 0, 0});
+	//v1.push_back(vector<int>{0, 1, 1});
+	//floodFill(v1, 1, 1, 1);
+	//Trie t;
+	//t.insert("abcc");
+	//t.insert("abdd");
+	//t.insert("a");
+	//cout<<countDigitOne(100);
+	//WordDictionary wd;
+	//wd.addWord("a");
+	//wd.addWord("a");
+	//wd.search(".");
+	//wd.search("a");
+	//wd.search("aa");
+	//wd.search("a");
+	//wd.search(".a");
+	//wd.search("a.");
 	return 0;
 }
 
